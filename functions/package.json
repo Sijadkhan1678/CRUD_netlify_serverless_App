@@ -1,0 +1,15 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "serverless functions",
+  "main": "n",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sijad khan",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "faunadb": "^4.7.1"
+  }
+}
