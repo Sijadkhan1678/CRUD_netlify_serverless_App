@@ -11,7 +11,6 @@ interface Book {
   cover: string
   date: string
 
-
 }
 function App() {
  
@@ -23,32 +22,23 @@ function App() {
       date: ''
 })
  
-// {
-//   id: '',
-//   name: '',
-//   author: '',
-//   cover: '',
-//   date: '' 
-// }
+
   const [open, setOpen] = useState<boolean>(true);
   const [books, setBooks] = useState<Book[]>([])
-  // const [updateBook, setUpdateBook] = useState <Book> ({ name: '', author:'',cover:''})
+  
   const [current,setCurrent] = useState <Book | null> (null)
-  console.log('formData to see change is here',formData)
-  // console.log('current book',current)
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
+
+  console.log('formData to see change is here',formData);
+
   const handleModal = () => open ? setOpen(false) : setOpen(true)
-  // `/.netlify/functions/add-book?id=${id}`
-  // aconst {name,author,cover} = formData
-  // console.log('Book Name',name)
+ 
   useEffect(() => {
 
     // getBooks()
   }, [current])
 
   const addBook = async (book:Book) => {
-    /*: Promise<any>*/
+    
     const res = await fetch(`/.netlify/functions/add-book`, {
 
       method: 'post',
