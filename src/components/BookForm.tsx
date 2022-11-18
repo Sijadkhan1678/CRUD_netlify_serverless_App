@@ -62,13 +62,7 @@ interface BookFormProps {
 const BookForm: FC<BookFormProps> = ({ handleModal, open, formData, setFormData, current, setCurrent, addBook, updateBook }) => {
 
 
-  // const [open, setOpen] = useState(true);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
-  // name: '',
-  // author: '',
-  // cover: '',
-  // publishedAt: new Date()
+
 
   return (
 
@@ -100,19 +94,13 @@ const BookForm: FC<BookFormProps> = ({ handleModal, open, formData, setFormData,
                 }
                 updateBook(updatedValue)
                 handleModal()
-                // setCurrent({
-                //   id: '',
-                //   name: '',
-                //   author: '',
-                //   cover: '',
-                //   date: ''
-                // })
-                // setFormData({
-                //   name: '',
-                //   author: '',
-                //   cover: '',
-                //   date: ''
-                // })
+                setCurrent(null)
+                setFormData({
+                  name: '',
+                  author: '',
+                  cover: '',
+                  date: ''
+                })
 
               } else {
 
@@ -124,43 +112,18 @@ const BookForm: FC<BookFormProps> = ({ handleModal, open, formData, setFormData,
                 }
                 console.log('before added book added values',book)
                 addBook(book)
-                // setFormData({
-
-                //   name: '',
-                //   author: '',
-                //   cover: '',
-                //   date: ''
-                // })
-               
+                
                 console.log('after added book added values',book);
                 handleModal()
 
               }
-              // setFormData({
-              //   name: values.name,
-              //   author: values.author,
-              //   cover: values.cover,
-              //   date: new Date().toDateString()
+             
 
+              // setTimeout(() => {
 
-              // })
-
-              setTimeout(() => {
-
-                // name: '',
-                // author: '',
-                // cover: '',
-                // date:  ''//new Date().toDateString()
-              }, 2000)
-              //  setTimeout( ()=>{
-              //  setOrderData({
-              //    ...orderData,
-              //    firstName:values.firstName,
-              //    lastName:values.lastName,
-              //    email:values.email
-              //  })
-              // handleNext()
-              //  },500)
+                
+              // }, 2000)
+             
             }}
           >
 
