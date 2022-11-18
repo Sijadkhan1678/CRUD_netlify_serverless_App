@@ -13,7 +13,7 @@ const handler = async (event) => {
 
     try {
       
-        const response = await client.query(query.Update(query.Ref(query.Collection('books'), id), { book }))
+        const response = await client.query(query.Update(query.Ref(query.Collection('books'), id), { data: book }))
         console.log('successfully Book Updated', response)
         
         return {
