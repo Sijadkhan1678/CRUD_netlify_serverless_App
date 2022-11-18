@@ -18,14 +18,7 @@ const handler = async (event) => {
 
     try {
         const book = JSON.parse(event.body);
-    // const result = await adminClient.query(
-    //     q.Create(
-    //       q.Collection('messages'),
-    //       { data: { detail:  messageBody.message} },
-    //     )
-    //   )
-    
-    const data = { book }
+  
   
         //  console.log('event book',book)
         //  query to save book in fauna db database

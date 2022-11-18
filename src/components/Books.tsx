@@ -1,9 +1,14 @@
-import React from 'react'
+import React,{FC} from 'react'
 import {Grid,Typography,Box} from '@mui/material'
 import BookItem  from './BookItem'
 
+interface BooksProps {
+     
+     handleUpdate: (book:{name:string,author: string, cover:string,date:string}) => void
+     deleteBook: (id: string | number) => void
+}
 
-export const Books = () => {
+export const Books:FC <BooksProps> = ({handleUpdate,deleteBook}) => {
   
   return (
   
@@ -14,12 +19,12 @@ export const Books = () => {
           direction='row' 
           justifyContent='space-evenly'>
 
+      <BookItem handleUpdate={handleUpdate} deleteBook={deleteBook} />
+      {/* <BookItem  />
       <BookItem  />
       <BookItem  />
       <BookItem  />
-      <BookItem  />
-      <BookItem  />
-      <BookItem  />
+      <BookItem  /> */}
 
     </Grid>
   </Box>

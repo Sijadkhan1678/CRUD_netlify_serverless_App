@@ -4,34 +4,154 @@ import { TextField } from "formik-mui";
 import { Formik, Form, Field } from 'formik'
 import { BookSchema } from './BookSchema'
 
+interface BookFormProps {
+  handleModal: () => void
+  open: boolean
+  formData: {
+    name: string
+    author: string
+    cover: string
+    date: string 
 
-const BookForm: FC = () => {
 
-  const [open, setOpen] = useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  }
+ 
+  current: {
+    id?: string
+    name: string
+    author: string
+    cover: string
+    date: string
+    
+  } | null
+
+  setFormData: React.Dispatch<React.SetStateAction<{
+    name: string;
+    author: string;
+    cover: string;
+    date: string
+  }>>
+
+  setCurrent: React.Dispatch<React.SetStateAction<{
+    id?: string
+    name: string;
+    author: string;
+    cover: string;
+    date: string
+
+  } | null>>
+
+  addBook: (book: {
+    name: string
+    author: string
+    cover: string
+    date: string
+  }) => void
+
+  updateBook: ( book: {
+
+    id?: string 
+    name: string
+    author: string
+    cover: string
+    date: string
+
+  }) => void
+}
+
+const BookForm: FC<BookFormProps> = ({ handleModal, open, formData, setFormData, current, setCurrent, addBook, updateBook }) => {
+
+
+  // const [open, setOpen] = useState(true);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+  // name: '',
+  // author: '',
+  // cover: '',
+  // publishedAt: new Date()
 
   return (
 
     <div>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={handleModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Formik
-            initialValues={{
-              name: '',
-              author: '',
-              cover: '',
-              publishAt: new Date()
-            }}
+            initialValues={ formData }
             validationSchema={BookSchema}
 
             onSubmit={(values) => {
               console.log('Form Value', values)
+
+
+              if(current !== null)  {
+                
+
+                const updatedValue = {
+                  id: current.id,
+                  name: values.name,
+                  author: values.author,
+                  cover: values.cover,
+                  date: new Date().toString()
+                }
+                updateBook(updatedValue)
+                handleModal()
+                // setCurrent({
+                //   id: '',
+                //   name: '',
+                //   author: '',
+                //   cover: '',
+                //   date: ''
+                // })
+                // setFormData({
+                //   name: '',
+                //   author: '',
+                //   cover: '',
+                //   date: ''
+                // })
+
+              } else {
+
+                const book = {
+                  name: values.name,
+                  author: values.author,
+                  cover: values.cover,
+                  date: new Date().toDateString()
+                }
+                console.log('before added book added values',book)
+                addBook(book)
+                // setFormData({
+
+                //   name: '',
+                //   author: '',
+                //   cover: '',
+                //   date: ''
+                // })
+               
+                console.log('after added book added values',book);
+                handleModal()
+
+              }
+              // setFormData({
+              //   name: values.name,
+              //   author: values.author,
+              //   cover: values.cover,
+              //   date: new Date().toDateString()
+
+
+              // })
+
+              setTimeout(() => {
+
+                // name: '',
+                // author: '',
+                // cover: '',
+                // date:  ''//new Date().toDateString()
+              }, 2000)
               //  setTimeout( ()=>{
               //  setOrderData({
               //    ...orderData,
@@ -46,9 +166,9 @@ const BookForm: FC = () => {
 
             <Form autoComplete="off">
 
-              <Box mt={5}>
+              <Box mt={3}>
 
-                <FormControl sx={{ m: '1.3rem 5rem' }}>
+                <FormControl sx={{ m: '1rem 5rem' }}>
 
                   <Field
                     component={TextField}
@@ -58,7 +178,7 @@ const BookForm: FC = () => {
                   />
                 </FormControl>
 
-                <FormControl sx={{ m: '1.3rem 5rem' }}>
+                <FormControl sx={{ m: '1rem 5rem' }}>
                   <Field
                     component={TextField}
                     id="author"
@@ -68,7 +188,7 @@ const BookForm: FC = () => {
                   />
                 </FormControl>
 
-                <FormControl sx={{ m: '1.3rem 5rem' }}>
+                <FormControl sx={{ m: '1rem 5rem' }}>
 
                   <Field
                     component={TextField}
@@ -104,7 +224,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  borderRadius: '1rem',
   boxShadow: 24,
   p: 4,
 };

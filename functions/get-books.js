@@ -8,7 +8,7 @@ const client = new Client({secret: process.env.COLLECTION_SECRET })
 
 const handler = async (event,context) => {
 
-    // const book = JSON.parse(event.body);
+    
 
     try {
         
@@ -22,7 +22,8 @@ const handler = async (event,context) => {
             {
               id: book.ref.id,
               name: book.data.name,
-              author: book.data.author
+              author: book.data.author,
+              date: book.data.date
             }
             ))
          console.log('get-book function result',books[0].id)
@@ -30,7 +31,7 @@ const handler = async (event,context) => {
 
             statusCode: 200,
 
-            body: JSON.stringify({"id":"wellcome In Book library"})
+            body: JSON.stringify(books)
 
         }
 

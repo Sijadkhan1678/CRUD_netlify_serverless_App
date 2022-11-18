@@ -8,18 +8,18 @@ const client = new Client({secret: process.env.COLLECTION.SECRET})
  
 const handler = async (event) => {
      
-       // const book = JSON.parse(event.body)
-      // const  {id} event.queryStringParameters.id
+       const book = JSON.parse(event.body)
+      const  {id} = event.queryStringParameters.id
 
     try {
       
-        // const response = await client.query(query.Update(query.Ref(query.Collection('books'), id), { book }))
-        // console.log('successfully Book Updated', response)
+        const response = await client.query(query.Update(query.Ref(query.Collection('books'), id), { book }))
+        console.log('successfully Book Updated', response)
         
-        // return {
-        //     statusCode: 200,
-        //     body: JSON.stringify(response),
-        //   }
+        return {
+            statusCode: 200,
+            body: JSON.stringify(response),
+          }
     }
    
    catch (error){

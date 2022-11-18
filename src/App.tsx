@@ -1,37 +1,115 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Books from './components/Books'
 import BookForm from './components/BookForm'
-
 import './App.css';
 
-function App() {
-useEffect( () => {
-  const id = "1"
-const res: Promise<any> = fetch(`/.netlify/functions/add-book?id=${id}`,{
-  
-  method: 'post',
-  body: JSON.stringify({
-    name: "learn javascript",
-    author: "SIjad kahan ",
-    date: new Date()
-  }
-  ),
-  
 
-})
-// const book= res.Json()
-// console.log()
-.then((res)=> res.json())
- .then(res=>{
-  console.log('book res',res)
- }).catch((error)=> console.log(error))
+interface Book {
+  id?: string, 
+  name: string
+  author: string
+  cover: string
+  date: string
+
+
 }
-,[])
+function App() {
+ 
+
+  const [formData, setFormData] = useState <Book>({
+      name: '',
+      author: '',
+      cover: '',
+      date: ''
+})
+ 
+// {
+//   id: '',
+//   name: '',
+//   author: '',
+//   cover: '',
+//   date: '' 
+// }
+  const [open, setOpen] = useState<boolean>(true);
+  const [books, setBooks] = useState<Book[]>([])
+  // const [updateBook, setUpdateBook] = useState <Book> ({ name: '', author:'',cover:''})
+  const [current,setCurrent] = useState <Book | null> (null)
+  console.log('formData to see change is here',formData)
+  // console.log('current book',current)
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+  const handleModal = () => open ? setOpen(false) : setOpen(true)
+  // `/.netlify/functions/add-book?id=${id}`
+  // aconst {name,author,cover} = formData
+  // console.log('Book Name',name)
+  useEffect(() => {
+
+    // getBooks()
+  }, [current])
+
+  const addBook = async (book:Book) => {
+    /*: Promise<any>*/
+    const res = await fetch(`/.netlify/functions/add-book`, {
+
+      method: 'post',
+      body: JSON.stringify(book),
+    })
+
+    const result = await res.json()
+    console.log('book successfully added', result.data)
+  }
+  const getBooks = async () => {
+
+    const res = await fetch('/.netlify/functions/get-books')
+    const data = await res.json()
+    // console.log(data)
+    
+    setBooks(data)
+  
+  }
+  console.log('get books from faunadb database',books)
+
+  const updateBook = async (book:Book) => {
+
+    console.log('book is updated successfully',book)
+     
+    const {id,name,author,cover} = book
+
+    const res = await fetch(`/.netlify/functions?id=${id}`,{
+      method: 'put',
+      body: JSON.stringify({
+          name,
+          author,
+          cover,
+          
+      })
+    })
+
+    const data = await res.json() 
+    console.log('book is updated successfully',data)
+  }
+  const deleteBook = async (id:string | number) => {
+
+     const res = await fetch(`/.netlify/functions/get-books?id=${id}`);
+
+     const data = await res.json();
+
+     console.log('book deleted successfully ',data)
+  }
+
+  const handleUpdate = (book:Book):void => {
+   
+    setCurrent(book)
+    setFormData(book)
+    handleModal()
+}
+
   return (
     <div className="App">
-      <BookForm />
-      <Books />
-    
+      <button onClick={()=>handleModal()}>open modal baba</button>
+      <BookForm open={open} handleModal={handleModal} formData={formData} setFormData={setFormData} addBook={addBook} updateBook={updateBook} current={current} setCurrent={setCurrent} />
+      <Books handleUpdate={handleUpdate} deleteBook={deleteBook} />
+
     </div>
   );
 }
