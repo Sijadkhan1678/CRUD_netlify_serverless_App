@@ -4,12 +4,13 @@ const  faunadb = require('faunadb')
 
 const { Client, query } = faunadb
 
-const client = new Client({secret: process.env.COLLECTION.SECRET})
+const client = new Client({secret: process.env.COLLECTION_SECRET})
  
 const handler = async (event) => {
      
        const book = JSON.parse(event.body)
-      const  {id} = event.queryStringParameters.id
+      const  id = event.queryStringParameters.id
+      console.log('id',id)
 
     try {
       
@@ -18,7 +19,7 @@ const handler = async (event) => {
         
         return {
             statusCode: 200,
-            body: JSON.stringify(response),
+            body: JSON.stringify(response.data),
           }
     }
    

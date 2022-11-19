@@ -19,10 +19,11 @@ const handler = async (event,context) => {
             )
           )
         const  books =  result.data.map(book=>(
-            {
+            { 
               id: book.ref.id,
               name: book.data.name,
               author: book.data.author,
+              cover: book.data.cover,
               date: book.data.date
             }
             ))

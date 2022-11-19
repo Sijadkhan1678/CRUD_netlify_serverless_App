@@ -90,7 +90,7 @@ const BookForm: FC<BookFormProps> = ({ handleModal, open, formData, setFormData,
                   name: values.name,
                   author: values.author,
                   cover: values.cover,
-                  date: new Date().toString()
+                  date: current.date
                 }
                 updateBook(updatedValue)
                 handleModal()

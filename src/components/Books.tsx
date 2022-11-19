@@ -6,9 +6,16 @@ interface BooksProps {
      
      handleUpdate: (book:{name:string,author: string, cover:string,date:string}) => void
      deleteBook: (id: string | number) => void
+     books: {
+      id?: string 
+      name:string,
+      author: string, 
+      cover:string,
+      date:string
+     }[]
 }
 
-export const Books:FC <BooksProps> = ({handleUpdate,deleteBook}) => {
+export const Books:FC <BooksProps> = ({ books,handleUpdate,deleteBook }) => {
   
   return (
   
@@ -19,13 +26,8 @@ export const Books:FC <BooksProps> = ({handleUpdate,deleteBook}) => {
           direction='row' 
           justifyContent='space-evenly'>
 
-      <BookItem handleUpdate={handleUpdate} deleteBook={deleteBook} />
-      {/* <BookItem  />
-      <BookItem  />
-      <BookItem  />
-      <BookItem  />
-      <BookItem  /> */}
-
+     { books && books.map( (book:any) => <BookItem key={book.id} book={book} handleUpdate={handleUpdate} deleteBook={deleteBook} />) }
+     
     </Grid>
   </Box>
   )

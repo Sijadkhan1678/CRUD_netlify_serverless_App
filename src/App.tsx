@@ -23,7 +23,7 @@ function App() {
 })
  
 
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const [books, setBooks] = useState<Book[]>([])
   
   const [current,setCurrent] = useState <Book | null> (null)
@@ -34,10 +34,11 @@ function App() {
  
   useEffect(() => {
 
-    // getBooks()
-  }, [current])
+    getBooks()
+  }, [])
 
   const addBook = async (book:Book) => {
+    console.log('book coverrrrrr',book.cover)
     
     const res = await fetch(`/.netlify/functions/add-book`, {
 
@@ -52,7 +53,7 @@ function App() {
 
     const res = await fetch('/.netlify/functions/get-books')
     const data = await res.json()
-    // console.log(data)
+    console.log('data',data)
     
     setBooks(data)
   
@@ -65,22 +66,18 @@ function App() {
      
     const {id,name,author,cover} = book
 
-    const res = await fetch(`/.netlify/functions?id=${id}`,{
+    const res = await fetch(`/.netlify/functions/update-book?id=${id}`,{
       method: 'put',
-      body: JSON.stringify({
-          name,
-          author,
-          cover,
-          
-      })
+      body: JSON.stringify(book),
     })
 
     const data = await res.json() 
     console.log('book is updated successfully',data)
   }
   const deleteBook = async (id:string | number) => {
+    // ?id=${id}
 
-     const res = await fetch(`/.netlify/functions/get-books?id=${id}`);
+     const res = await fetch(`/.netlify/functions/delete-book?id=${id}`);
 
      const data = await res.json();
 
@@ -98,7 +95,7 @@ function App() {
     <div className="App">
       <button onClick={()=>handleModal()}>open modal baba</button>
       <BookForm open={open} handleModal={handleModal} formData={formData} setFormData={setFormData} addBook={addBook} updateBook={updateBook} current={current} setCurrent={setCurrent} />
-      <Books handleUpdate={handleUpdate} deleteBook={deleteBook} />
+      <Books books={books} handleUpdate={handleUpdate} deleteBook={deleteBook} />
 
     </div>
   );
