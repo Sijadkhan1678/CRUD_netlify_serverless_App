@@ -15,20 +15,13 @@ interface Book {
 function App() {
  
 
-  const [formData, setFormData] = useState <Book>({
-      name: '',
-      author: '',
-      cover: '',
-      date: ''
-})
  
+// && cd functions && npm install
 
   const [open, setOpen] = useState<boolean>(false);
   const [books, setBooks] = useState<Book[]>([])
   
   const [current,setCurrent] = useState <Book | null> (null)
-
-  console.log('formData to see change is here',formData);
 
   const handleModal = () => open ? setOpen(false) : setOpen(true)
  
@@ -48,6 +41,7 @@ function App() {
 
     const result = await res.json()
     console.log('book successfully added', result.data)
+    getBooks()
   }
   const getBooks = async () => {
 
@@ -64,7 +58,7 @@ function App() {
 
     console.log('book is updated successfully',book)
      
-    const {id,name,author,cover} = book
+    const {id} = book
 
     const res = await fetch(`/.netlify/functions/update-book?id=${id}`,{
       method: 'put',
@@ -73,28 +67,30 @@ function App() {
 
     const data = await res.json() 
     console.log('book is updated successfully',data)
+    getBooks()
   }
   const deleteBook = async (id:string | number) => {
-    // ?id=${id}
+  
 
      const res = await fetch(`/.netlify/functions/delete-book?id=${id}`);
 
      const data = await res.json();
 
      console.log('book deleted successfully ',data)
+     getBooks()
   }
 
   const handleUpdate = (book:Book):void => {
    
     setCurrent(book)
-    setFormData(book)
     handleModal()
+    
 }
 
   return (
     <div className="App">
-      <button onClick={()=>handleModal()}>open modal baba</button>
-      <BookForm open={open} handleModal={handleModal} formData={formData} setFormData={setFormData} addBook={addBook} updateBook={updateBook} current={current} setCurrent={setCurrent} />
+      <button onClick={()=>handleModal()}>open modal</button>
+      <BookForm open={open} handleModal={handleModal}  addBook={addBook} updateBook={updateBook} current={current} setCurrent={setCurrent} />
       <Books books={books} handleUpdate={handleUpdate} deleteBook={deleteBook} />
 
     </div>

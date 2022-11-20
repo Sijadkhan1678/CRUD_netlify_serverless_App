@@ -6,16 +6,9 @@ import { BookSchema } from './BookSchema'
 
 interface BookFormProps {
   handleModal: () => void
+
   open: boolean
-  formData: {
-    name: string
-    author: string
-    cover: string
-    date: string 
-
-
-  }
- 
+  
   current: {
     id?: string
     name: string
@@ -24,13 +17,6 @@ interface BookFormProps {
     date: string
     
   } | null
-
-  setFormData: React.Dispatch<React.SetStateAction<{
-    name: string;
-    author: string;
-    cover: string;
-    date: string
-  }>>
 
   setCurrent: React.Dispatch<React.SetStateAction<{
     id?: string
@@ -59,10 +45,23 @@ interface BookFormProps {
   }) => void
 }
 
-const BookForm: FC<BookFormProps> = ({ handleModal, open, formData, setFormData, current, setCurrent, addBook, updateBook }) => {
+interface Book {
+  id?: string 
+  name: string
+  author: string
+  cover: string
+  date: string
+}
+
+const BookForm: FC<BookFormProps> = ({ handleModal, open, current, setCurrent, addBook, updateBook }) => {
 
 
-
+  const formData:Book = {
+    name: '',
+    author: '',
+    cover: '',
+    date: ''
+}
 
   return (
 
@@ -75,16 +74,15 @@ const BookForm: FC<BookFormProps> = ({ handleModal, open, formData, setFormData,
       >
         <Box sx={style}>
           <Formik
-            initialValues={ formData }
+            initialValues={ current !==null ? current : formData }
             validationSchema={BookSchema}
 
             onSubmit={(values) => {
-              console.log('Form Value', values)
 
+              console.log('Form Value', values)
 
               if(current !== null)  {
                 
-
                 const updatedValue = {
                   id: current.id,
                   name: values.name,
@@ -95,13 +93,7 @@ const BookForm: FC<BookFormProps> = ({ handleModal, open, formData, setFormData,
                 updateBook(updatedValue)
                 handleModal()
                 setCurrent(null)
-                setFormData({
-                  name: '',
-                  author: '',
-                  cover: '',
-                  date: ''
-                })
-
+               
               } else {
 
                 const book = {

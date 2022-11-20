@@ -2,7 +2,7 @@ import React,{FC} from 'react'
 import { Paper, Grid, Typography, Box, Button, Stack, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon  from '@mui/icons-material/Edit'
-import { Block } from '@mui/icons-material'
+
 
 
 interface BookItemProps {
@@ -21,9 +21,11 @@ console.log('book item cover',cover)
 
     <Grid item xs={3.5} md={2.5} >
       <Paper elevation={6}>
-         {/* <img src={cover}  alt='book img' width='100%' //height='250px' 
-         />*/}
-          <img src={cover} style={{display:'block'}} alt='book title add here' width='250px' height='200px'/>
+
+          <img src={cover}  alt='book img'
+          width='100%' height='250px' 
+         />
+        
 
         <Box mt={2.4} pl={1.5} >
        
