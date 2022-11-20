@@ -1,5 +1,5 @@
 import React,{FC} from 'react'
-import { Paper, Grid, Typography, Box, Button, Stack, IconButton } from '@mui/material'
+import { Paper, Grid, Typography, Box, Stack, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon  from '@mui/icons-material/Edit'
 
@@ -27,7 +27,7 @@ console.log('book item cover',cover)
          />
         
 
-        <Box mt={2.4} pl={1.5} >
+        <Box mt={1.5} pl={1.5} >
        
           <Typography variant='h3'
             fontWeight='500'
@@ -39,13 +39,13 @@ console.log('book item cover',cover)
         <Typography component='p'
             fontWeight="300"
             fontSize="0.7rem"
-            textAlign='left' p={1.3}>
+            textAlign='left' p={1}>
             {author}
           </Typography>
           <Typography component='p'
             fontWeight="300"
             fontSize="0.7rem"
-            textAlign='left' p={1.5}>
+            textAlign='left' p={1}>
             {date}
           </Typography>
 
@@ -67,12 +67,5 @@ console.log('book item cover',cover)
 
   )
 }
-
-const style = {
-  borderRadius: '0.8rem',
-  height: '250px'
-  // width:'400px'
-}
-
 
 export default BookItem;

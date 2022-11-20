@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { Box, Stack, Button, FormControl, Modal } from '@mui/material'
 import { TextField } from "formik-mui";
 import { Formik, Form, Field } from 'formik'
@@ -79,8 +79,6 @@ const BookForm: FC<BookFormProps> = ({ handleModal, open, current, setCurrent, a
 
             onSubmit={(values) => {
 
-              console.log('Form Value', values)
-
               if(current !== null)  {
                 
                 const updatedValue = {
@@ -102,15 +100,13 @@ const BookForm: FC<BookFormProps> = ({ handleModal, open, current, setCurrent, a
                   cover: values.cover,
                   date: new Date().toDateString()
                 }
-                console.log('before added book added values',book)
-                addBook(book)
                 
-                console.log('after added book added values',book);
+                addBook(book)
+          
                 handleModal()
 
               }
-             
-
+          
               // setTimeout(() => {
 
                 

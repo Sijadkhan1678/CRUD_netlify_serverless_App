@@ -31,23 +31,22 @@ function App() {
   }, [])
 
   const addBook = async (book:Book) => {
-    console.log('book coverrrrrr',book.cover)
+   
     
-    const res = await fetch(`/.netlify/functions/add-book`, {
+    await fetch(`/.netlify/functions/add-book`, {
 
       method: 'post',
       body: JSON.stringify(book),
     })
 
-    const result = await res.json()
-    console.log('book successfully added', result.data)
+    
+    
     getBooks()
   }
   const getBooks = async () => {
 
     const res = await fetch('/.netlify/functions/get-books')
     const data = await res.json()
-    console.log('data',data)
     
     setBooks(data)
   
@@ -55,28 +54,24 @@ function App() {
   console.log('get books from faunadb database',books)
 
   const updateBook = async (book:Book) => {
-
-    console.log('book is updated successfully',book)
      
     const {id} = book
 
-    const res = await fetch(`/.netlify/functions/update-book?id=${id}`,{
+     await fetch(`/.netlify/functions/update-book?id=${id}`,{
+
       method: 'put',
       body: JSON.stringify(book),
+
     })
 
-    const data = await res.json() 
-    console.log('book is updated successfully',data)
+    
+    
     getBooks()
   }
   const deleteBook = async (id:string | number) => {
   
+      await fetch(`/.netlify/functions/delete-book?id=${id}`);
 
-     const res = await fetch(`/.netlify/functions/delete-book?id=${id}`);
-
-     const data = await res.json();
-
-     console.log('book deleted successfully ',data)
      getBooks()
   }
 
