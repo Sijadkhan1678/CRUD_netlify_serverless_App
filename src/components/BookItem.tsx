@@ -16,14 +16,14 @@ export const BookItem: FC <BookItemProps> = ({ book ,handleUpdate, deleteBook}) 
 
   const { id,name, author,cover,date } = book
 
-console.log('book item cover',cover)
+
   return (
 
     <Grid item xs={3.5} md={2.5} >
       <Paper elevation={6}>
 
           <img src={cover}  alt='book img'
-          width='100%' height='250px' 
+          width='100%' height='150px' 
          />
         
 
