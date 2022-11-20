@@ -15,9 +15,6 @@ interface Book {
 function App() {
  
 
- 
-// && cd functions && npm install
-
   const [open, setOpen] = useState<boolean>(false);
   const [books, setBooks] = useState<Book[]>([])
   
